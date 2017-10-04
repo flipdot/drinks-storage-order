@@ -1,0 +1,33 @@
+---
+url_api: https://api.flipdot.org/
+
+template:
+    sender:
+        logo:       \input{logo/flipdot-logo.pdf_tex}
+        email:      drinks@flipdot.org
+        person:     REDACTED
+        phone:      REDACTED
+        name:       flipdot e.V.
+        address:  |
+                  | Franz-Ulrich-Straße 18
+                  | 34117 Kassel
+        place:      Kassel
+    supplier:     |
+                  | REDACTED
+
+demand:
+    apfelschorle:        4
+    grapefruit_sprudel:  4
+    mineralwasser:       2
+    bier_becks:          4
+    bier_eschweger:      5
+    bier_jacobinus:      5
+    bier_jever:          4
+    bier_jever_fun:      3
+    bier_koestritzer:    2
+    bier_radler:         2
+    mio_banane:          3
+    mio_cola:            7
+    mio_ginger:          7
+    mio_mate:            7
+...
