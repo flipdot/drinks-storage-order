@@ -1,0 +1,123 @@
+\documentclass[backaddress=true]{scrlttr2}
+
+\usepackage[utf8x]{inputenc}
+\usepackage{color,calc,ngerman,mathptmx}
+\usepackage{eurosym}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+
+% Variables
+\def\orderid{$if(cache.order_id)$$cache.order_id$$else$YOUR ORDER ID$endif$ }
+\def\orderlogo{$if(template.sender.logo)$$template.sender.logo$$else$YOUR LOGO$endif$}
+\def\orderemail{$if(template.sender.email)$$template.sender.email$$else$YOUR MAIL ADDRESS$endif$}
+\def\orderphone{$if(template.sender.phone)$$template.sender.phone$$else$YOUR PHONE NUMBER$endif$}
+\def\ordersupplier{$if(template.supplier)$$template.supplier$$else$YOUR SUPPLIERS ADDRESS$endif$ }
+\def\orderperson{$if(template.sender.person)$$template.sender.person$$else$YOUR CEOH$endif$ }
+\setkomavar{fromname}{$if(template.sender.name)$$template.sender.name$$else$YOUR HACKERSPACE$endif$}
+\setkomavar{fromaddress}{$if(template.sender.address)$$template.sender.address$$else$YOUR ADDRESS$endif$}
+\setkomavar{place}{$if(template.sender.place)$$template.sender.place$$else$YOUR CITY (AGAIN)$endif$}
+
+
+% Actual order items
+\def\ordercountapfelschorle{$if(order.apfelschorle)$$order.apfelschorle$$else$0$endif$}
+\def\ordercountgrapefruitsprudel{$if(order.grapefruitsprudel)$$order.grapefruitsprudel$$else$0$endif$}
+\def\ordercountmineralwasser{$if(order.mineralwasser)$$order.mineralwasser$$else$0$endif$}
+\def\ordercountbierbecks{$if(order.bier_becks)$$order.bier_becks$$else$0$endif$}
+\def\ordercountbiereschweger{$if(order.bier_eschweger)$$order.bier_eschweger$$else$0$endif$}
+\def\ordercountbierjacobinus{$if(order.bier_jacobinus)$$order.bier_jacobinus$$else$0$endif$}
+\def\ordercountbierjever{$if(order.bier_jever)$$order.bier_jever$$else$0$endif$}
+\def\ordercountbierjeverfun{$if(order.bier_jeverfun)$$order.bier_jeverfun$$else$0$endif$}
+\def\ordercountbierkoestritzer{$if(order.bier_koestritzer)$$order.bier_koestritzer$$else$0$endif$}
+\def\ordercountbierradler{$if(order.bier_radler)$$order.bier_radler$$else$0$endif$}
+\def\ordercountmiobanane{$if(order.mio_banane)$$order.mio_banane$$else$0$endif$}
+\def\ordercountmiocola{$if(order.mio_cola)$$order.mio_cola$$else$0$endif$}
+\def\ordercountmioginger{$if(order.mio_ginger)$$order.mio_ginger$$else$0$endif$}
+\def\ordercountmiomate{$if(order.mio_mate)$$order.mio_mate$$else$0$endif$}
+
+
+% Dependencies
+\setkomavar{subject}{Bestellung Nr. \orderid vom \usekomavar{date}}
+
+% Font size
+\renewcommand{\familydefault}{\sfdefault}
+
+% Color
+\def\cgray{\color[gray]{.6}}
+\def\cgrayapfelschorle{$if(order.apfelschorle)$$else$\cgray$endif$}
+\def\cgraygrapefruitsprudel{$if(order.grapefruitsprudel)$$else$\cgray$endif$}
+\def\cgraymineralwasser{$if(order.mineralwasser)$$else$\cgray$endif$}
+\def\cgraybierbecks{$if(order.bier_becks)$$else$\cgray$endif$}
+\def\cgraybiereschweger{$if(order.bier_eschweger)$$else$\cgray$endif$}
+\def\cgraybierjacobinus{$if(order.bier_jacobinus)$$else$\cgray$endif$}
+\def\cgraybierjever{$if(order.bier_jever)$$else$\cgray$endif$}
+\def\cgraybierjeverfun{$if(order.bier_jeverfun)$$else$\cgray$endif$}
+\def\cgraybierkoestritzer{$if(order.bier_koestritzer)$$else$\cgray$endif$}
+\def\cgraybierradler{$if(order.bier_radler)$$else$\cgray$endif$}
+\def\cgraymiobanane{$if(order.mio_banane)$$else$\cgray$endif$}
+\def\cgraymiocola{$if(order.mio_cola)$$else$\cgray$endif$}
+\def\cgraymioginger{$if(order.mio_ginger)$$else$\cgray$endif$}
+\def\cgraymiomate{$if(order.mio_mate)$$else$\cgray$endif$}
+
+% Head
+\firsthead{\null\hfill
+  \parbox[t][\headheight][t]{5cm}{%
+   \raggedright
+    \def\svgwidth{4cm}
+    \orderlogo\\[\baselineskip]
+
+   \usekomavar{fromname}\\
+   \usekomavar{fromaddress}\\[\baselineskip]
+   E-Mail: \orderemail\\
+   Telefon: \orderphone\\
+   }%
+}
+
+\setkomavar{location}{
+\\[\baselineskip]
+\\[\baselineskip]
+\\[\baselineskip]
+  \large{Bestellung Nr. \orderid}
+}
+\begin{document}
+\setlength{\parindent}{0pt}
+% If you want headings on subsequent pages,
+% remove the ``%'' on the next line:
+% \pagestyle{headings}
+
+\begin{letter}{\ordersupplier}
+
+\opening{}
+\renewcommand{\arraystretch}{1.3}
+
+
+
+\begin{tabular}{|r|r|p{0.3\textwidth}|p{0.04\textwidth}|r|r|p{0.3\textwidth}|}
+%\begin{tabular}{|r|r|l|p{0.1\textwidth}|r|r|l|}
+    \cline{1-3} \cline{5-7}
+    \cgray\textbf{Pos} & \textbf{Stk} & \textbf{\ Bezeichnung} & & \cgray\textbf{Pos} & \textbf{Stk} & \textbf{\ Bezeichnung} \\
+     \cline{1-3} \cline{5-7}
+     \cline{1-3} \cline{5-7} \cgray 1 & \cgrayapfelschorle      \ordercountapfelschorle      & \ \cgrayapfelschorle      Fortuna Apfelschorle  & & \cgray  8 & \cgraybierjeverfun    \ordercountbierjeverfun    & \ \cgraybierjeverfun    Jever Fun         \\
+     \cline{1-3} \cline{5-7} \cgray 2 & \cgraygrapefruitsprudel \ordercountgrapefruitsprudel & \ \cgraygrapefruitsprudel Waldecker Sport       & & \cgray  9 & \cgraybierkoestritzer \ordercountbierkoestritzer & \ \cgraybierkoestritzer Köstritzer        \\
+     \cline{1-3} \cline{5-7} \cgray 3 & \cgraymineralwasser     \ordercountmineralwasser     & \ \cgraymineralwasser     Caldener Medium       & & \cgray 10 & \cgraybierradler      \ordercountbierradler      & \ \cgraybierradler      Kromacher Radler  \\
+     \cline{1-3} \cline{5-7} \cgray 4 & \cgraybierbecks         \ordercountbierbecks         & \ \cgraybierbecks         Becks                 & & \cgray 11 & \cgraymiobanane       \ordercountmiobanane       & \ \cgraymiobanane       Mio Mio Banane    \\
+     \cline{1-3} \cline{5-7} \cgray 5 & \cgraybiereschweger     \ordercountbiereschweger     & \ \cgraybiereschweger     Eschweger Klosterbräu & & \cgray 12 & \cgraymiocola         \ordercountmiocola         & \ \cgraymiocola         Mio Mio Cola      \\
+     \cline{1-3} \cline{5-7} \cgray 6 & \cgraybierjacobinus     \ordercountbierjacobinus     & \ \cgraybierjacobinus     Jacobinus Classic     & & \cgray 13 & \cgraymioginger       \ordercountmioginger       & \ \cgraymioginger       Mio Mio Ginger    \\
+     \cline{1-3} \cline{5-7} \cgray 7 & \cgraybierjever         \ordercountbierjever         & \ \cgraybierjever         Jever                 & & \cgray 14 & \cgraymiomate         \ordercountmiomate         & \ \cgraymiomate         Mio Mio Mate      \\
+     \cline{1-3} \cline{5-7}
+\end{tabular}
+\\[\baselineskip]
+
+\textbf{Stückzahlen bezeichnen volle Getränkekästen, keine Einzelflaschen.}
+\\[\baselineskip]
+Wie vereinbart bestellen wir die einzelnen Positionen, zu den tagesaktuellen
+Preisen in Ihrem Getränkemarkt. Sollten sich Änderungen ergeben oder Fragen
+offen geblieben sein, bitte ich Sie um telefonische Kontaktaufnahme.
+
+\vspace{30pt}
+Mit den besten Grüßen,\\
+\hspace*{20pt}i.A. \orderperson\\
+\hspace*{20pt}für \usekomavar{fromname}
+
+\end{letter}
+\end{document}
