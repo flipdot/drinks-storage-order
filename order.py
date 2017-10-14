@@ -13,7 +13,7 @@ CWD = os.path.dirname(os.path.realpath(__file__))
 FILE_CACHE = os.path.join(CWD, 'cache.yaml')
 FILE_CONFIG = os.path.join(CWD, 'config.yaml')
 FILE_TEMPLATE = os.path.join(CWD, 'order_template.latex')
-FILE_TMP = '/tmp/order.yaml'
+FILE_ORDER = '/tmp/order.yaml'
 
 
 def get_config():
@@ -80,10 +80,10 @@ if __name__ == '__main__':
     file_out = '/tmp/{}-bestellung-{}.pdf'.format(
         datetime.date.today().isoformat(),
         supplier_filename,
-    )
+        )
 
     # Write order data to temporary yaml file
-    with open(FILE_TMP, 'w') as f:
+    with open(FILE_ORDER, 'w') as f:
         f.write('---\n')
         f.write(yaml.dump(order, default_flow_style=False))
         f.write('...\n')
@@ -94,7 +94,7 @@ if __name__ == '__main__':
         outputfile=file_out,
         extra_args=['-s',
                     '--template={}'.format(FILE_TEMPLATE),
-                    FILE_TMP,
+                    FILE_ORDER,
                     FILE_CACHE,
                     FILE_CONFIG,
                     ]
