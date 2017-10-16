@@ -26,14 +26,14 @@ def get_config():
 
 
 def get_supply(config):
-    r = requests.get(config.get('url_api'))
+    r = requests.get(config['url_api'])
     if r.status_code != 200:
         return False
     supply = {}
-    for drink in r.json().get('state').get('sensors').get('beverage_supply'):
-        if drink.get('location') != 'cellar' or drink.get('unit') != 'crt':
+    for drink in r.json()['state']['sensors']['beverage_supply']:
+        if drink['location'] != 'cellar' or drink['unit'] != 'crt':
             continue
-        supply[drink.get('name')] = drink.get('value')
+        supply[drink['name']] = drink['value']
     return supply
 
 
@@ -46,13 +46,13 @@ def get_sample_supply(config, demand):
 
 
 def get_demand(config):
-    return config.get('demand')
+    return config['demand']
 
 
 def get_diff(supply, demand):
     diff = {}
     for k, vd in demand.items():
-        vs = supply.get(k)
+        vs = supply[k]
         if not vs:
             diff[k] = vd
         else:
