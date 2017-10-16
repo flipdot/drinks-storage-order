@@ -1,5 +1,6 @@
 ---
 url_api: https://api.flipdot.org/
+wait_days: 14
 
 template:
     sender:

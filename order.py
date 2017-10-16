@@ -7,6 +7,9 @@ import random
 import requests
 import yaml
 import os
+import sys
+
+import dateutil.parser
 
 
 CWD = os.path.dirname(os.path.realpath(__file__))
@@ -69,6 +72,23 @@ def get_order(diff):
 
 if __name__ == '__main__':
     config = get_config()
+
+    # Check minimum wait
+    with open(FILE_CACHE, 'r+') as f:
+        cache = yaml.load(f)
+        last_date_str = cache['cache']['last_date']
+        last_date = dateutil.parser.parse(last_date_str).date()
+        now_date = datetime.date.today()
+        diff_date = now_date - last_date
+        wait_days = datetime.timedelta(days=config['wait_days'])
+
+        if diff_date <= wait_days:
+            print("The last order was {} days ago."
+                  .format(diff_date.days))
+            print("The earliest next order would be in {} days."
+                  .format(abs(diff_date - wait_days).days))
+            sys.exit(0)
+
     demand = get_demand(config)
     # supply = get_supply(config)
     supply = get_sample_supply(config, demand)
@@ -103,8 +123,10 @@ if __name__ == '__main__':
 
     # Increment order id on success
     with open(FILE_CACHE, 'r+') as f:
+        # TODO Refactor
         cache = yaml.load(f)
         cache['cache']['order_id'] += 1
+        cache['cache']['last_date'] = datetime.date.today().isoformat()
         f.seek(0)
         f.write('---\n')
         f.write(yaml.dump(cache, default_flow_style=False))
