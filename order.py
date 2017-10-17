@@ -7,9 +7,14 @@ import random
 import requests
 import yaml
 import os
+import smtplib
 import sys
 
 import dateutil.parser
+
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 
 CWD = os.path.dirname(os.path.realpath(__file__))
@@ -70,6 +75,60 @@ def get_order(diff):
     return ret
 
 
+def send_mail(config, cache, pdf_path):
+    fqdn = config['mail']['server']['fqdn']
+    port = config['mail']['server']['port']
+    user = config['mail']['server']['user']
+    password = config['mail']['server']['password']
+
+    sender = '{} <{}>'.format(
+        config['mail']['sender']['name'],
+        config['mail']['sender']['address'],
+    )
+    recipient = '{} <{}>'.format(
+        config['mail']['recipient']['name'],
+        config['mail']['recipient']['address'],
+    )
+    cc = sender
+
+    subject = '{}{} {}'.format(
+        config['mail']['text']['subject1'],
+        cache['cache']['order_id'],
+        config['mail']['text']['subject2'],
+    )
+    body_text = config['mail']['text']['body']
+
+    txt_attachment = MIMEText(body_text)
+
+    with open(pdf_path, 'rb') as f:
+        pdf_attachment = MIMEApplication(f.read(), 'pdf')
+
+    # Construct MIME message
+    msg = MIMEMultipart()
+    msg.attach(txt_attachment)
+    msg.attach(pdf_attachment)
+
+    # Add additional headers
+    msg['From'] = sender
+    msg['To'] = recipient
+    msg['CC'] = cc
+    msg['Subject'] = subject
+
+    # Initiate TLS connection
+    mailer = smtplib.SMTP('{}:{}'.format(fqdn, port))
+    mailer.starttls()
+
+    # Login
+    try:
+        mailer.login(user, password)
+    except smtplib.SMTPAuthenticationError as e:
+        print("Error sending mail:\n  {}".format(e.smtp_error))
+        sys.exit(1)
+
+    # Actually send mail
+    mailer.sendmail(sender, recipient, msg.as_string())
+    mailer.quit()
+
 if __name__ == '__main__':
     config = get_config()
 
@@ -109,6 +168,8 @@ if __name__ == '__main__':
         f.write('...\n')
 
     # Create order document
+    print('Creating order as pdf... ', end='')
+    sys.stdout.flush()
     output = pypandoc.convert_file(
         'empty.md', 'pdf',
         outputfile=file_out,
@@ -120,8 +181,22 @@ if __name__ == '__main__':
                     ]
         )
     assert output == ''
+    print('OK')
+
+    # Sent order via mail
+    print('Sending test mail... ', end='')
+    sys.stdout.flush()
+    try:
+        send_mail(config, cache, file_out)
+    except Exception as e:
+        print('ERROR\n')
+        print(e)
+        sys.exit(1)
+    print('OK')
 
     # Increment order id on success
+    print('Updating cache file... ', end='')
+    sys.stdout.flush()
     with open(FILE_CACHE, 'r+') as f:
         # TODO Refactor
         cache = yaml.load(f)
@@ -131,3 +206,4 @@ if __name__ == '__main__':
         f.write('---\n')
         f.write(yaml.dump(cache, default_flow_style=False))
         f.write('...\n')
+    print('OK')

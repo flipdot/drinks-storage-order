@@ -2,19 +2,45 @@
 url_api:    https://api.flipdot.org/
 wait_days: 14
 
+mail:
+    server:
+        fqdn:       mail.example.org
+        port:       587
+        user:       username
+        password:   $ecre7
+    sender:
+        name:       Franz Flipflop
+        address:    fff@example.org
+    recipient:
+        name:       Herr Getraenk
+        address:    hg@ic.ht
+    text:
+        subject1:   Getränkebestellung №
+        subject2:   für flipdot e.V.
+        body:       |
+                    Sehr geehrter Herr Getränk,
+
+                    hiermit geben wir bei Ihnen die Bestellung im Anhang auf.
+
+                    Mit besten Grüßen,
+                      i.A. Franz Flipflop
+                      für flipdot e.V.
+
 template:
     sender:
         logo:       \input{logo/flipdot-logo.pdf_tex}
         email:      drinks@flipdot.org
-        person:     REDACTED
-        phone:      REDACTED
+        person:     Franz Flipflop
+        phone:      0800 / 111 0 111
         name:       flipdot e.V.
         address:  |
                   | Franz-Ulrich-Straße 18
                   | 34117 Kassel
         place:      Kassel
     supplier:     |
-                  | REDACTED
+                  | Irgendein Getränkemarkt
+                  | Straßenname 123
+                  | 12345 Stadt
 
 demand:
     apfelschorle:        4
