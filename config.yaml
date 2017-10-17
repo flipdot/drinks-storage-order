@@ -42,6 +42,10 @@ template:
                   | Straßenname 123
                   | 12345 Stadt
 
+limits:
+    min_crates: 30
+    max_crates: 40
+
 demand:
     apfelschorle:        4
     grapefruit_sprudel:  4

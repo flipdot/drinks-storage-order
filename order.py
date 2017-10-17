@@ -154,6 +154,23 @@ if __name__ == '__main__':
     diff = get_diff(supply, demand)
     order = get_order(diff)
 
+    # Check crate limits
+    crate_count = sum(diff.values())
+    min_crates = config['limits']['min_crates']
+    max_crates = config['limits']['max_crates']
+    if crate_count < min_crates:
+        print("The order would consist of {} crates."
+              .format(crate_count))
+        print("This is below the lower limit of {} crates."
+              .format(min_crates))
+        sys.exit(0)
+    if crate_count > max_crates:
+        print("The order would consist of {} crates."
+              .format(crate_count))
+        print("This is above the upper limit of {} crates."
+              .format(min_crates))
+        sys.exit(0)
+
     supplier = config['template']['supplier']
     supplier_filename = supplier.split(' ')[1].lower().strip()
     file_out = '/tmp/{}-bestellung-{}.pdf'.format(
