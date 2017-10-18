@@ -21,13 +21,13 @@
 
 % Actual order items
 \def\ordercountapfelschorle{$if(order.apfelschorle)$$order.apfelschorle$$else$0$endif$}
-\def\ordercountgrapefruitsprudel{$if(order.grapefruitsprudel)$$order.grapefruitsprudel$$else$0$endif$}
+\def\ordercountgrapefruitsprudel{$if(order.grapefruit_sprudel)$$order.grapefruit_sprudel$$else$0$endif$}
 \def\ordercountmineralwasser{$if(order.mineralwasser)$$order.mineralwasser$$else$0$endif$}
 \def\ordercountbierbecks{$if(order.bier_becks)$$order.bier_becks$$else$0$endif$}
 \def\ordercountbiereschweger{$if(order.bier_eschweger)$$order.bier_eschweger$$else$0$endif$}
 \def\ordercountbierjacobinus{$if(order.bier_jacobinus)$$order.bier_jacobinus$$else$0$endif$}
 \def\ordercountbierjever{$if(order.bier_jever)$$order.bier_jever$$else$0$endif$}
-\def\ordercountbierjeverfun{$if(order.bier_jeverfun)$$order.bier_jeverfun$$else$0$endif$}
+\def\ordercountbierjeverfun{$if(order.bier_jever_fun)$$order.bier_jever_fun$$else$0$endif$}
 \def\ordercountbierkoestritzer{$if(order.bier_koestritzer)$$order.bier_koestritzer$$else$0$endif$}
 \def\ordercountbierradler{$if(order.bier_radler)$$order.bier_radler$$else$0$endif$}
 \def\ordercountmiobanane{$if(order.mio_banane)$$order.mio_banane$$else$0$endif$}
@@ -45,13 +45,13 @@
 % Color
 \def\cgray{\color[gray]{.6}}
 \def\cgrayapfelschorle{$if(order.apfelschorle)$$else$\cgray$endif$}
-\def\cgraygrapefruitsprudel{$if(order.grapefruitsprudel)$$else$\cgray$endif$}
+\def\cgraygrapefruitsprudel{$if(order.grapefruit_sprudel)$$else$\cgray$endif$}
 \def\cgraymineralwasser{$if(order.mineralwasser)$$else$\cgray$endif$}
 \def\cgraybierbecks{$if(order.bier_becks)$$else$\cgray$endif$}
 \def\cgraybiereschweger{$if(order.bier_eschweger)$$else$\cgray$endif$}
 \def\cgraybierjacobinus{$if(order.bier_jacobinus)$$else$\cgray$endif$}
 \def\cgraybierjever{$if(order.bier_jever)$$else$\cgray$endif$}
-\def\cgraybierjeverfun{$if(order.bier_jeverfun)$$else$\cgray$endif$}
+\def\cgraybierjeverfun{$if(order.bier_jever_fun)$$else$\cgray$endif$}
 \def\cgraybierkoestritzer{$if(order.bier_koestritzer)$$else$\cgray$endif$}
 \def\cgraybierradler{$if(order.bier_radler)$$else$\cgray$endif$}
 \def\cgraymiobanane{$if(order.mio_banane)$$else$\cgray$endif$}
