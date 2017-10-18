@@ -249,3 +249,7 @@ if __name__ == '__main__':
         f.write(yaml.dump(cache, default_flow_style=False))
         f.write('...\n')
     print('OK')
+
+    # Remove temporary files
+    os.remove(FILE_ORDER)
+    os.remove(file_out)
