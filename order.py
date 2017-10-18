@@ -91,9 +91,11 @@ def get_order(diff):
 
 def cap_order(order, max_crates):
     cap = order['order']
+    cap['total'] = 0
     while sum(cap.values()) > max_crates:
         cap[max_key(cap)] -= 1
 
+    cap['total'] = sum(cap.values())
     return order
 
 
