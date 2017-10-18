@@ -62,6 +62,8 @@ def get_diff(supply, demand):
             diff[k] = vd
         else:
             diff[k] = vd - vs
+        if diff[k] < 0:
+            diff[k] = 0
     return diff
 
 
