@@ -24,6 +24,15 @@ FILE_TEMPLATE = os.path.join(CWD, 'order_template.latex')
 FILE_ORDER = '/tmp/order.yaml'
 
 
+# https://stackoverflow.com/a/12343826
+def max_key(d):
+     """ a) create a list of the dict's keys and values;
+         b) return the key with the max value"""
+     v=list(d.values())
+     k=list(d.keys())
+     return k[v.index(max(v))]
+
+
 def get_config():
     with open(FILE_CONFIG, 'r') as f:
         config = yaml.load(f)
@@ -75,6 +84,14 @@ def get_order(diff):
             continue
         order[k] = v
     return ret
+
+
+def cap_order(order, max_crates):
+    cap = order['order']
+    while sum(cap.values()) > max_crates:
+        cap[max_key(cap)] -= 1
+
+    return order
 
 
 def send_mail(config, cache, pdf_path):
@@ -171,7 +188,8 @@ if __name__ == '__main__':
               .format(crate_count))
         print("This is above the upper limit of {} crates."
               .format(min_crates))
-        sys.exit(0)
+        order = cap_order(order, max_crates)
+        print("Successfully successively lowered to match limit.")
 
     supplier = config['template']['supplier']
     supplier_filename = supplier.split(' ')[1].lower().strip()
