@@ -83,6 +83,9 @@ def get_order(diff):
         if v <= 0:
             continue
         order[k] = v
+
+    crate_count = sum(diff.values())
+    order['total'] = crate_count
     return ret
 
 

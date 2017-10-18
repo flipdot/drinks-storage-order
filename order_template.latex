@@ -35,6 +35,8 @@
 \def\ordercountmioginger{$if(order.mio_ginger)$$order.mio_ginger$$else$0$endif$}
 \def\ordercountmiomate{$if(order.mio_mate)$$order.mio_mate$$else$0$endif$}
 
+\def\ordercounttotal{$if(order.total)$$order.total$$else$0$endif$}
+
 
 % Dependencies
 \setkomavar{subject}{Bestellung Nr. \orderid vom \usekomavar{date}}
@@ -110,9 +112,10 @@
 
 \textbf{Stückzahlen bezeichnen volle Getränkekästen, keine Einzelflaschen.}
 \\[\baselineskip]
-Wie vereinbart bestellen wir die einzelnen Positionen, zu den tagesaktuellen
-Preisen in Ihrem Getränkemarkt. Sollten sich Änderungen ergeben oder Fragen
-offen geblieben sein, bitte ich Sie um telefonische Kontaktaufnahme.
+Wie vereinbart bestellen wir die einzelnen Positionen, insgesamt
+\ordercounttotal\ Getränkekästen, zu den tagesaktuellen Preisen in Ihrem
+Getränkemarkt. Sollten sich Änderungen ergeben oder Fragen offen geblieben
+sein, bitte ich Sie um telefonische Kontaktaufnahme.
 
 \vspace{30pt}
 Mit den besten Grüßen,\\
