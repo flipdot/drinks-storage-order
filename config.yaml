@@ -18,6 +18,37 @@ mail:
         subject1:   Getränkebestellung №
         subject2:   für flipdot e.V.
         body:       |
+                    Lieber Chief Executive of Boozyness,
+
+                    bitte überprüfe folgende automatisierte Bestellung auf Richtigkeit. Sollte ein
+                    Fehler passiert sein, antworte auf diese E-Mail (an
+                    drinks-storage@example.org). Sollte alles richtig sein, entferne diesen
+                    einleitenden Text und leite die E-Mail über den Forward-Button deines
+                    Mailclients an folgende Adressen weiter.
+
+                      drinks-storage@example.org
+                      herr-getraenk@example.org
+
+                    Somit ist garantiert, dass alle Personen die über obige E-Mail-Adresse
+                    informiert werden im Fall einer korrekten oder fehlerhaften Bestellung.
+
+                    Zur Überprüfung der Bestellung können die erfassten aktuellen Daten verwendet
+                    werden. Sollten Daten nicht aktuell genug sein, wird keine Bestellung
+                    ausgelöst. Diese sind auch in den Statistiken als abrubt verschwundene Balken
+                    zu erkennen.
+
+                    https://stats.flipdot.org/dashboard/db/drinks-storage
+
+                    Die Einstellungen des Programms was diese Mail abgesendet hat ist unter folgender URL einsehbar.
+                    Davon ausgenommen sind personalisierte Daten.
+
+                    https://github.com/flipdot/drinks-storage-order/blob/master/config.yaml
+
+                    Vielen Dank,
+                      Drinks Storage
+
+                    -- 
+
                     Sehr geehrter Herr Getränk,
 
                     hiermit geben wir bei Ihnen die Bestellung im Anhang auf.
