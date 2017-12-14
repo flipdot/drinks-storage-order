@@ -43,20 +43,20 @@ template:
                   | 12345 Stadt
 
 limits:
-    min_crates: 30
+    min_crates: 20
     max_crates: 40
 
 demand:
     apfelschorle:        4
     grapefruit_sprudel:  4
     mineralwasser:       2
-    bier_becks:          4
-    bier_eschweger:      5
-    bier_jacobinus:      5
-    bier_jever:          4
-    bier_jever_fun:      3
-    bier_koestritzer:    2
-    bier_radler:         2
+    becks:               4
+    eschweger:           5
+    jacobinus:           5
+    jever:               4
+    jever_fun:           3
+    koestritzer:         2
+    radler:              2
     mio_banane:          3
     mio_cola:            7
     mio_ginger:          7
