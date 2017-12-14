@@ -177,8 +177,8 @@ if __name__ == '__main__':
             sys.exit(0)
 
     demand = get_demand(config)
-    # supply = get_supply(config)
-    supply = get_sample_supply(config, demand)
+    supply = get_supply(config)
+    # supply = get_sample_supply(config, demand)
     diff = get_diff(supply, demand)
     order = get_order(diff)
 
