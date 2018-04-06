@@ -1,0 +1,4 @@
+pypandoc>=1.4
+python-dateutil>=2.7.2
+PyYAML>=3.12
+requests>=2.18.4
