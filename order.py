@@ -44,11 +44,13 @@ def get_supply(config):
     if r.status_code != 200:
         return False
     supply = {}
+    timestamps = {}
     for drink in r.json()['state']['sensors']['beverage_supply']:
         if drink['location'] != 'cellar' or drink['unit'] != 'crt':
             continue
         supply[drink['name']] = drink['value']
-    return supply
+        timestamps[drink['name']] = dateutil.parser.parse(drink['ext_modified'])
+    return supply, timestamps
 
 
 def get_sample_supply(config, demand):
@@ -181,10 +183,21 @@ if __name__ == '__main__':
             sys.exit(0)
 
     demand = get_demand(config)
-    supply = get_supply(config)
-    # supply = get_sample_supply(config, demand)
+    supply, timestamps = get_supply(config)
     diff = get_diff(supply, demand)
     order = get_order(diff)
+
+    # Check if data is new enough
+    now = datetime.datetime.now(datetime.timezone.utc)
+    too_old = {}
+    for k, v in timestamps.items():
+        if (now - v).days > config['limits']['data_max_days']:
+            too_old[k] = (now - v).days
+    if len(too_old) > 0:
+        print("The following crates have data that is too old:")
+        for k, v in too_old.items():
+            print("  {} ({} days)".format(k, v))
+        sys.exit(0)
 
     # Check crate limits
     crate_count = sum(diff.values())
