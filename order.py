@@ -158,6 +158,10 @@ def send_mail(config, cache, pdf_path):
     mailer.quit()
 
 if __name__ == '__main__':
+    # Print header for more convenience in logs
+    print()
+    print(datetime.date.today().isoformat())
+
     config = get_config()
 
     # Check minimum wait
