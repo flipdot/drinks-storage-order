@@ -3,3 +3,4 @@ cache.yaml*
 *.pdf
 .ropeproject
 .*.sw[op]
+*.log
