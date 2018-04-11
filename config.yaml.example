@@ -76,6 +76,7 @@ template:
 limits:
     min_crates: 20
     max_crates: 40
+    data_max_days: 3
 
 demand:
     apfelschorle:        4
