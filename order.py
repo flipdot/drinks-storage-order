@@ -67,10 +67,10 @@ def get_demand(config):
 
 def get_diff(supply, demand):
     diff = {}
+    missing = []
     for k, vd in demand.items():
         if k not in supply:
-            print("Set to zero, because of missing data: {}".format(k))
-            vs = 0
+            missing.append(k)
         else:
             vs = supply[k]
         if not vs:
@@ -79,6 +79,11 @@ def get_diff(supply, demand):
             diff[k] = vd - vs
         if diff[k] < 0:
             diff[k] = 0
+    if len(missing) > 0:
+        print("The following crates have missing data:")
+        for m in missing:
+            print("  {}".format(m))
+        sys.exit(1)
     return diff
 
 
