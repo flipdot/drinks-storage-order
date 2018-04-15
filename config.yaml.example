@@ -73,6 +73,16 @@ template:
                   | Straßenname 123
                   | 12345 Stadt
 
+grafana:
+    alerts:
+        url: http://WEBHOOK_ENDPOINT/
+        auth: INSERT_AUTH_BASE64_USER_PW
+    annotations:
+        url: https://GRAFANA_HOST/api/annotations
+        api_key: INSERT_API_KEY
+        dashboard_id: 28
+        panel_id: 29
+
 limits:
     min_crates: 20
     max_crates: 40

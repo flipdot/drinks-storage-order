@@ -2,13 +2,14 @@
 # Manages orders for flipdot's drinks storage system
 
 import datetime
+import json
+import os
 import pypandoc
 import random
 import requests
-import yaml
-import os
 import smtplib
 import sys
+import yaml
 
 import dateutil.parser
 
@@ -164,6 +165,52 @@ def send_mail(config, cache, pdf_path):
     mailer.sendmail(sender, recipient, msg.as_string())
     mailer.quit()
 
+
+def get_order_text(order, types, config, cache):
+    order_text = ''
+    for t in types:
+        try:
+            order_text += '{:2d} {}\n'.format(order['order'][t], t)
+        except:
+            pass
+
+    order_text += '\n{:2d} TOTAL'.format(order['order']['total'])
+    return order_text
+
+
+def add_grafana_annotation(order_text, config, cache):
+    # Order data
+    order_id = cache['cache']['order_id']
+
+    # Annotation specific data
+    timestamp = int(datetime.datetime.now().timestamp() * 1000)  # Epoch * 1000
+    ann_tags = ['Order', '№{}'.format(order_id)]
+    ann_dashboard_id = config['grafana']['annotations']['dashboard_id']
+    ann_panel_id = config['grafana']['annotations']['panel_id']
+    ann_headers = {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer {}'.format(config['grafana']['annotations']['api_key'])
+        }
+
+    ann_payload = {
+        'dashboardId': ann_dashboard_id,
+        'panelId': ann_panel_id,
+        'time': timestamp,
+        'tags': ann_tags,
+        'text': order_text,
+    }
+
+    r = requests.post(
+        config['grafana']['annotations']['url'],
+        data=json.dumps(ann_payload),
+        headers=ann_headers,
+    )
+
+    if r.status_code != 200:
+        return False
+    return True
+
+
 if __name__ == '__main__':
     # Print header for more convenience in logs
     print()
@@ -259,6 +306,15 @@ if __name__ == '__main__':
     except Exception as e:
         print('ERROR\n')
         print(e)
+        sys.exit(1)
+    print('OK')
+
+    # Create an annotation within the Grafana dashboard:
+    # https://stats.flipdot.org/d/tpLhZnWiz/drinks-storage
+    print('Creating dashboard annotation... ', end='')
+    order_text = get_order_text(order, list(demand.keys()), config, cache)
+    if not add_grafana_annotation(order_text, config, cache):
+        print('ERROR')
         sys.exit(1)
     print('OK')
 
