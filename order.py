@@ -167,6 +167,7 @@ def send_mail(config, cache, pdf_path):
 
 
 def get_order_text(order, types, config, cache):
+
     order_text = ''
     for t in types:
         try:
@@ -204,6 +205,31 @@ def add_grafana_annotation(order_text, config, cache):
         config['grafana']['annotations']['url'],
         data=json.dumps(ann_payload),
         headers=ann_headers,
+    )
+
+    if r.status_code != 200:
+        return False
+    return True
+
+def send_webhook_alert(order_text, config, cache):
+    order_text = order_text.replace('\n\n', ', ').replace('\n', ', ').replace('  ', ' ')
+
+    # Alert specific data
+    alert_auth = config['grafana']['alerts']['auth']
+    alert_headers = {
+        'content-type': 'application/json',
+        'Authorization': 'Basic {}'.format(alert_auth)
+    }
+    alert_payload = {
+        'ruleName': 'Drinks order',
+        'message': 'The following order has just been sent:\n{}'.format(order_text),
+        'state': 'alerting',
+    }
+
+    r = requests.post(
+        config['grafana']['alerts']['url'],
+        data=json.dumps(alert_payload),
+        headers=alert_headers,
     )
 
     if r.status_code != 200:
@@ -314,6 +340,13 @@ if __name__ == '__main__':
     print('Creating dashboard annotation... ', end='')
     order_text = get_order_text(order, list(demand.keys()), config, cache)
     if not add_grafana_annotation(order_text, config, cache):
+        print('ERROR')
+        sys.exit(1)
+    print('OK')
+
+    # Abuse the webhook handler to create an alert which is then pasted to IRC
+    print('Sending webhook alert... ', end='')
+    if not send_webhook_alert(order_text, config, cache):
         print('ERROR')
         sys.exit(1)
     print('OK')
