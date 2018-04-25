@@ -28,7 +28,7 @@ apt install python3-pypandoc texlive-latex-recommended texlive-latex-extra texli
 To routinely let the script run, you could add a cronjob to a 24/7 system by adding the following line after issueing `crontab -e`:
 
 ```
-0 8 * * mon-fri LANG=en_US.UTF-8 /home/automaton/drinks-storage-order/order.py 2>&1 >> /home/automaton/drinks-storage-order/order.log
+0 8 * * mon-fri cd /SOME/CUSTOM/PATH/drinks-storage-order && LANG=en_US.UTF-8 ./order.py 2>&1 >> /home/automaton/drinks-storage-order/order.log
 ```
 
 This would run the cronjob each Monday to Friday at precisely eight o'clock.
