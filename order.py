@@ -324,9 +324,6 @@ if __name__ == '__main__':
     assert output == ''
     print('OK')
 
-    print('Exiting prematurely, because debug... ;)')
-    sys.exit(0)
-
     # Sent order via mail
     print('Sending test mail... ', end='')
     sys.stdout.flush()
