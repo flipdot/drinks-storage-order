@@ -240,7 +240,7 @@ def send_webhook_alert(order_text, config, cache):
 if __name__ == '__main__':
     # Print header for more convenience in logs
     print()
-    print(datetime.date.today().isoformat())
+    print(datetime.datetime.now())
 
     config = get_config()
 
@@ -323,6 +323,9 @@ if __name__ == '__main__':
         )
     assert output == ''
     print('OK')
+
+    print('Exiting prematurely, because debug... ;)')
+    sys.exit(0)
 
     # Sent order via mail
     print('Sending test mail... ', end='')
