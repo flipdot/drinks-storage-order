@@ -17,12 +17,15 @@ from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+from requests.exceptions import ConnectionError
+
 
 CWD = os.path.dirname(os.path.realpath(__file__))
 FILE_CACHE = os.path.join(CWD, 'cache.yaml')
 FILE_CONFIG = os.path.join(CWD, 'config.yaml')
 FILE_TEMPLATE = os.path.join(CWD, 'order_template.latex')
 FILE_ORDER = '/tmp/order.yaml'
+REQUESTS_TIMEOUT = 10
 
 
 # https://stackoverflow.com/a/12343826
@@ -205,6 +208,7 @@ def add_grafana_annotation(order_text, config, cache):
         config['grafana']['annotations']['url'],
         data=json.dumps(ann_payload),
         headers=ann_headers,
+        timeout=REQUESTS_TIMEOUT,
     )
 
     if r.status_code != 200:
@@ -226,11 +230,16 @@ def send_webhook_alert(order_text, config, cache):
         'state': 'alerting',
     }
 
-    r = requests.post(
-        config['grafana']['alerts']['url'],
-        data=json.dumps(alert_payload),
-        headers=alert_headers,
-    )
+    try:
+        r = requests.post(
+            config['grafana']['alerts']['url'],
+            data=json.dumps(alert_payload),
+            headers=alert_headers,
+            timeout=REQUESTS_TIMEOUT,
+        )
+
+    except ConnectionError as e:
+        return False
 
     if r.status_code != 200:
         return False
@@ -349,7 +358,8 @@ if __name__ == '__main__':
     if not send_webhook_alert(order_text, config, cache):
         print('ERROR')
         sys.exit(1)
-    print('OK')
+    else:
+        print('OK')
 
     # Increment order id on success
     print('Updating cache file... ', end='')
