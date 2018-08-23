@@ -30,11 +30,11 @@ REQUESTS_TIMEOUT = 10
 
 # https://stackoverflow.com/a/12343826
 def max_key(d):
-     """ a) create a list of the dict's keys and values;
-         b) return the key with the max value"""
-     v=list(d.values())
-     k=list(d.keys())
-     return k[v.index(max(v))]
+    """ a) create a list of the dict's keys and values;
+        b) return the key with the max value"""
+    v=list(d.values())
+    k=list(d.keys())
+    return k[v.index(max(v))]
 
 
 def get_config():
