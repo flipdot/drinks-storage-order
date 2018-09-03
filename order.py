@@ -300,7 +300,7 @@ if __name__ == '__main__':
         print("The order would consist of {} crates."
               .format(crate_count))
         print("This is above the upper limit of {} crates."
-              .format(min_crates))
+              .format(max_crates))
         order = cap_order(order, max_crates)
         print("Successfully successively lowered to match limit.")
 
