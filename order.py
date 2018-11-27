@@ -69,7 +69,7 @@ def get_demand(config):
     return config['demand']
 
 
-def get_diff(supply, demand, config, cache):
+def get_diff(supply, demand, config):
     diff = {}
     missing = []
     for k, vd in demand.items():
@@ -277,7 +277,7 @@ if __name__ == '__main__':
 
     demand = get_demand(config)
     supply, timestamps = get_supply(config)
-    diff = get_diff(supply, demand)
+    diff = get_diff(supply, demand, config)
     order = get_order(diff)
 
     # Check if data is new enough
