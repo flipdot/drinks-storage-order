@@ -87,6 +87,7 @@ def get_diff(supply, demand, config):
         error = "The following crates have missing data:\n"
         for m in missing:
             error += "  {}\n".format(m)
+        print(error)
         # Send IRC notification via webhook on failure
         print('Sending webhook alert... ', end='')
         if not send_webhook_alert(error, config):
