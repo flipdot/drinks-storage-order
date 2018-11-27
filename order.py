@@ -69,7 +69,7 @@ def get_demand(config):
     return config['demand']
 
 
-def get_diff(supply, demand):
+def get_diff(supply, demand, config, cache):
     diff = {}
     missing = []
     for k, vd in demand.items():
@@ -84,9 +84,15 @@ def get_diff(supply, demand):
         if diff[k] < 0:
             diff[k] = 0
     if len(missing) > 0:
-        print("The following crates have missing data:")
+        error = "The following crates have missing data:\n"
         for m in missing:
-            print("  {}".format(m))
+            error += "  {}\n".format(m)
+        # Send IRC notification via webhook on failure
+        print('Sending webhook alert... ', end='')
+        if not send_webhook_alert(error, config):
+            print('ERROR')
+        else:
+            print('OK')
         sys.exit(1)
     return diff
 
@@ -215,7 +221,7 @@ def add_grafana_annotation(order_text, config, cache):
         return False
     return True
 
-def send_webhook_alert(order_text, config, cache):
+def send_webhook_alert(order_text, config):
     order_text = order_text.replace('\n\n', ', ').replace('\n', ', ').replace('  ', ' ')
 
     # Alert specific data
@@ -226,7 +232,7 @@ def send_webhook_alert(order_text, config, cache):
     }
     alert_payload = {
         'ruleName': 'Drinks order',
-        'message': 'The following order has just been sent:\n{}'.format(order_text),
+        'message': order_text,
         'state': 'alerting',
     }
 
@@ -281,9 +287,16 @@ if __name__ == '__main__':
         if (now - v).days > config['limits']['data_max_days']:
             too_old[k] = (now - v).days
     if len(too_old) > 0:
-        print("The following crates have data that is too old:")
+        error = "The following crates have data that is too old:\n"
         for k, v in too_old.items():
-            print("  {} ({} days)".format(k, v))
+            error += "  {} ({} days)\n".format(k, v)
+        print(error)
+        # Send IRC notification via webhook on failure
+        print('Sending webhook alert... ', end='')
+        if not send_webhook_alert(error, config):
+            print('ERROR')
+        else:
+            print('OK')
         sys.exit(0)
 
     # Check crate limits
@@ -355,7 +368,7 @@ if __name__ == '__main__':
 
     # Abuse the webhook handler to create an alert which is then pasted to IRC
     print('Sending webhook alert... ', end='')
-    if not send_webhook_alert(order_text, config, cache):
+    if not send_webhook_alert('The following order has just been sent:\n{}'.format(order_text), config):
         print('ERROR')
     else:
         print('OK')
