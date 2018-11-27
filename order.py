@@ -350,14 +350,13 @@ if __name__ == '__main__':
     order_text = get_order_text(order, list(demand.keys()), config, cache)
     if not add_grafana_annotation(order_text, config, cache):
         print('ERROR')
-        sys.exit(1)
-    print('OK')
+    else:
+        print('OK')
 
     # Abuse the webhook handler to create an alert which is then pasted to IRC
     print('Sending webhook alert... ', end='')
     if not send_webhook_alert(order_text, config, cache):
         print('ERROR')
-        sys.exit(1)
     else:
         print('OK')
 
