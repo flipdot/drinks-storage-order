@@ -73,6 +73,7 @@ def get_diff(supply, demand, config):
     diff = {}
     missing = []
     for k, vd in demand.items():
+        vs = None
         if k not in supply:
             missing.append(k)
         else:
