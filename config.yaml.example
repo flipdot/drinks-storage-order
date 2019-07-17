@@ -89,15 +89,15 @@ limits:
     data_max_days: 3
 
 demand:
-    apfelschorle:        4
-    grapefruit_sprudel:  4
-    mineralwasser:       2
+    apfelschorle:        5
+    grapefruit_sprudel:  2
+    mineralwasser:       4
     becks:               4
-    eschweger:           5
-    jacobinus:           5
+    eschweger:           4
+    jacobinus:           4
     jever:               4
     jever_fun:           3
-    koestritzer:         4
+    koestritzer:         3
     radler:              4
     mio_banane:          3
     mio_cola:            7
