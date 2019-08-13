@@ -30,7 +30,7 @@
 \def\ordercountbierjeverfun{$if(order.jever_fun)$$order.jever_fun$$else$0$endif$}
 \def\ordercountbierkoestritzer{$if(order.koestritzer)$$order.koestritzer$$else$0$endif$}
 \def\ordercountbierradler{$if(order.radler)$$order.radler$$else$0$endif$}
-\def\ordercountmiobanane{$if(order.mio_banane)$$order.mio_banane$$else$0$endif$}
+\def\ordercountmioguarana{$if(order.mio_guarana)$$order.mio_guarana$$else$0$endif$}
 \def\ordercountmiocola{$if(order.mio_cola)$$order.mio_cola$$else$0$endif$}
 \def\ordercountmioginger{$if(order.mio_ginger)$$order.mio_ginger$$else$0$endif$}
 \def\ordercountmiomate{$if(order.mio_mate)$$order.mio_mate$$else$0$endif$}
@@ -56,7 +56,7 @@
 \def\cgraybierjeverfun{$if(order.jever_fun)$$else$\cgray$endif$}
 \def\cgraybierkoestritzer{$if(order.koestritzer)$$else$\cgray$endif$}
 \def\cgraybierradler{$if(order.radler)$$else$\cgray$endif$}
-\def\cgraymiobanane{$if(order.mio_banane)$$else$\cgray$endif$}
+\def\cgraymioguarana{$if(order.mio_guarana)$$else$\cgray$endif$}
 \def\cgraymiocola{$if(order.mio_cola)$$else$\cgray$endif$}
 \def\cgraymioginger{$if(order.mio_ginger)$$else$\cgray$endif$}
 \def\cgraymiomate{$if(order.mio_mate)$$else$\cgray$endif$}
@@ -102,7 +102,7 @@
      \cline{1-3} \cline{5-7} \cgray 1 & \cgrayapfelschorle      \ordercountapfelschorle      & \ \cgrayapfelschorle      Fortuna Apfelschorle      & & \cgray  8 & \cgraybierjeverfun    \ordercountbierjeverfun    & \ \cgraybierjeverfun    Jever Fun         \\
      \cline{1-3} \cline{5-7} \cgray 2 & \cgraygrapefruitsprudel \ordercountgrapefruitsprudel & \ \cgraygrapefruitsprudel Waldecker Sport (1l PET)  & & \cgray  9 & \cgraybierkoestritzer \ordercountbierkoestritzer & \ \cgraybierkoestritzer Köstritzer        \\
      \cline{1-3} \cline{5-7} \cgray 3 & \cgraymineralwasser     \ordercountmineralwasser     & \ \cgraymineralwasser     Caldener Medium           & & \cgray 10 & \cgraybierradler      \ordercountbierradler      & \ \cgraybierradler      Krombacher Radler  \\
-     \cline{1-3} \cline{5-7} \cgray 4 & \cgraybierbecks         \ordercountbierbecks         & \ \cgraybierbecks         Becks                     & & \cgray 11 & \cgraymiobanane       \ordercountmiobanane       & \ \cgraymiobanane       Mio Mio Banane    \\
+     \cline{1-3} \cline{5-7} \cgray 4 & \cgraybierbecks         \ordercountbierbecks         & \ \cgraybierbecks         Becks                     & & \cgray 11 & \cgraymioguarana       \ordercountmioguarana       & \ \cgraymioguarana       Mio Mio Guarana \\
      \cline{1-3} \cline{5-7} \cgray 5 & \cgraybiereschweger     \ordercountbiereschweger     & \ \cgraybiereschweger     Eschweger Klosterbräu     & & \cgray 12 & \cgraymiocola         \ordercountmiocola         & \ \cgraymiocola         Mio Mio Cola      \\
      \cline{1-3} \cline{5-7} \cgray 6 & \cgraybierjacobinus     \ordercountbierjacobinus     & \ \cgraybierjacobinus     Jacobinus Classic         & & \cgray 13 & \cgraymioginger       \ordercountmioginger       & \ \cgraymioginger       Mio Mio Ginger    \\
      \cline{1-3} \cline{5-7} \cgray 7 & \cgraybierjever         \ordercountbierjever         & \ \cgraybierjever         Jever                     & & \cgray 14 & \cgraymiomate         \ordercountmiomate         & \ \cgraymiomate         Mio Mio Mate      \\
