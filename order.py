@@ -369,7 +369,7 @@ if __name__ == '__main__':
 
     # Abuse the webhook handler to create an alert which is then pasted to IRC
     print('Sending webhook alert... ', end='')
-    if not send_webhook_alert('The following order has just been sent:\n{}'.format(order_text), config):
+    if not send_webhook_alert('The following order has just been sent: {}'.format(order_text), config):
         print('ERROR')
     else:
         print('OK')
