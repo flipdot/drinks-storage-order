@@ -23,7 +23,7 @@ from requests.exceptions import ConnectionError
 CWD = os.path.dirname(os.path.realpath(__file__))
 FILE_CACHE = os.path.join(CWD, 'cache.yaml')
 FILE_CONFIG = os.path.join(CWD, 'config.yaml')
-FILE_TEMPLATE = os.path.join(CWD, 'order_template.latex')
+FILE_TEMPLATE = os.path.join(CWD, 'order_template.tex')
 FILE_ORDER = '/tmp/order.yaml'
 REQUESTS_TIMEOUT = 10
 
