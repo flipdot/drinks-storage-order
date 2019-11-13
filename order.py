@@ -39,7 +39,7 @@ def max_key(d):
 
 def get_config():
     with open(FILE_CONFIG, 'r') as f:
-        config = yaml.load(f)
+        config = yaml.safe_load(f)
     return config
 
 
@@ -262,7 +262,7 @@ if __name__ == '__main__':
 
     # Check minimum wait
     with open(FILE_CACHE, 'r+') as f:
-        cache = yaml.load(f)
+        cache = yaml.safe_load(f)
         last_date_str = cache['cache']['last_date']
         last_date = dateutil.parser.parse(last_date_str).date()
         now_date = datetime.date.today()
@@ -379,7 +379,7 @@ if __name__ == '__main__':
     sys.stdout.flush()
     with open(FILE_CACHE, 'r+') as f:
         # TODO Refactor
-        cache = yaml.load(f)
+        cache = yaml.safe_load(f)
         cache['cache']['order_id'] += 1
         cache['cache']['last_date'] = datetime.date.today().isoformat()
         f.seek(0)
