@@ -49,7 +49,10 @@ def get_supply(config):
         return False
     supply = {}
     timestamps = {}
-    for drink in r.json()['state']['sensors']['beverage_supply']:
+    sensors = r.json().get('state').get('sensors')
+    if not sensors.get('beverage_supply'):
+        raise ValueError('Could not find beverage_supply data.')
+    for drink in sensors.get('beverage_supply'):
         if drink['location'] != 'cellar' or drink['unit'] != 'crt':
             continue
         supply[drink['name']] = drink['value']
