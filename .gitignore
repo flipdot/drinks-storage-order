@@ -1,4 +1,5 @@
 config.yaml
+override*.yaml*
 cache.yaml*
 *.pdf
 .ropeproject

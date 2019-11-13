@@ -60,6 +60,13 @@ def get_supply(config):
     return supply, timestamps
 
 
+def get_supply_stdin(stdin):
+    supply = yaml.safe_load(''.join(stdin)).get('supply')
+    now = datetime.datetime.now(datetime.timezone.utc)
+    timestamps = {k: now for k in supply.keys()}
+    return supply, timestamps
+
+
 def get_sample_supply(config, demand):
     supply = {}
     for k, v in demand.items():
@@ -280,7 +287,14 @@ if __name__ == '__main__':
             sys.exit(0)
 
     demand = get_demand(config)
-    supply, timestamps = get_supply(config)
+
+    # Check for supply's manual override via stdin
+    if sys.stdin.isatty():
+        supply, timestamps = get_supply(config)
+    else:
+        stdin = sys.stdin.readlines()
+        supply, timestamps = get_supply_stdin(stdin)
+
     diff = get_diff(supply, demand, config)
     order = get_order(diff)
 
