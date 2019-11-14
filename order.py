@@ -256,11 +256,11 @@ def send_webhook_alert(order_text, config):
         )
 
     except ConnectionError as e:
-        print("CONNECTION ")
+        print('CONNECTION ', end='')
         return False
 
     if r.status_code != 200:
-        print("CREDENTIAL ")
+        print('CREDENTIAL ', end='')
         return False
     return True
 
