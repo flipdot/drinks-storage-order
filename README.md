@@ -60,3 +60,7 @@ This file could then be fed in via stdin like so:
 ```
 ./order.py < override.yaml
 ```
+
+## License
+
+This software is licensed under the Zero-Clause BSD license. For more information read the `LICENSE.md` document.
