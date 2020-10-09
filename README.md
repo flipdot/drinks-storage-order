@@ -4,6 +4,11 @@ Manages orders for flipdot's drinks storage system.
 
 To create a new PDF file containing an order simply use the `order.py` script. It will generate a file containing today's date in the ISO-8601 format and the supplier's name within `/tmp`.
 
+## Operation Overview
+
+This script fetches the current state of the stored beverage crates using data from Grafana. Using the configured `demand` (see [config.yaml.example](config.yaml.example)), it calculates the number of crates that are currently desired. When the threshold `limits.min_crates` is reached, an order is generated as PDF and sent via mail to `mail.recipient.address`.
+The order is also registered as alert in Grafana.
+
 ## Installation
 
 ### `pip`
@@ -35,7 +40,10 @@ This would run the cronjob each Monday to Friday at precisely eight o'clock.
 
 ## Manual Override
 
-If sensors are failing, it is possible to place an order manually. To do so, a yaml file is needed to be fed into the script via stdin. An exemplary observation could reside in `override.yaml` like so:
+If sensors are failing, it is possible to place an order manually. To do so, a yaml file is needed to be fed into the script via stdin.
+This file needs to contain the number of crates that are currently in storage. **It does not reflect the amount of crates that will be ordered**.
+
+An exemplary observation could reside in `override.yaml` like so:
 
 ```
 supply:
