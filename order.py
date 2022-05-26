@@ -366,47 +366,47 @@ if __name__ == '__main__':
     assert output == ''
     print('OK')
 
-    # Sent order via mail
-    print('Sending test mail... ', end='')
-    sys.stdout.flush()
-    try:
-        send_mail(config, cache, file_out)
-    except Exception as e:
-        print('ERROR\n')
-        print(e)
-        sys.exit(1)
-    print('OK')
+    # # Sent order via mail
+    # print('Sending test mail... ', end='')
+    # sys.stdout.flush()
+    # try:
+    #     send_mail(config, cache, file_out)
+    # except Exception as e:
+    #     print('ERROR\n')
+    #     print(e)
+    #     sys.exit(1)
+    # print('OK')
 
-    # Create an annotation within the Grafana dashboard:
-    # https://stats.flipdot.org/d/tpLhZnWiz/drinks-storage
-    print('Creating dashboard annotation... ', end='')
-    order_text = get_order_text(order, list(demand.keys()), config, cache)
-    if not add_grafana_annotation(order_text, config, cache):
-        print('ERROR')
-    else:
-        print('OK')
+    # # Create an annotation within the Grafana dashboard:
+    # # https://stats.flipdot.org/d/tpLhZnWiz/drinks-storage
+    # print('Creating dashboard annotation... ', end='')
+    # order_text = get_order_text(order, list(demand.keys()), config, cache)
+    # if not add_grafana_annotation(order_text, config, cache):
+    #     print('ERROR')
+    # else:
+    #     print('OK')
 
-    # Abuse the webhook handler to create an alert which is then pasted to IRC
-    print('Sending webhook alert... ', end='')
-    if not send_webhook_alert('The following order has just been sent: {}'.format(order_text), config):
-        print('ERROR')
-    else:
-        print('OK')
+    # # Abuse the webhook handler to create an alert which is then pasted to IRC
+    # print('Sending webhook alert... ', end='')
+    # if not send_webhook_alert('The following order has just been sent: {}'.format(order_text), config):
+    #     print('ERROR')
+    # else:
+    #     print('OK')
 
-    # Increment order id on success
-    print('Updating cache file... ', end='')
-    sys.stdout.flush()
-    with open(FILE_CACHE, 'r+') as f:
-        # TODO Refactor
-        cache = yaml.safe_load(f)
-        cache['cache']['order_id'] += 1
-        cache['cache']['last_date'] = datetime.date.today().isoformat()
-        f.seek(0)
-        f.write('---\n')
-        f.write(yaml.dump(cache, default_flow_style=False))
-        f.write('...\n')
-    print('OK')
+    # # Increment order id on success
+    # print('Updating cache file... ', end='')
+    # sys.stdout.flush()
+    # with open(FILE_CACHE, 'r+') as f:
+    #     # TODO Refactor
+    #     cache = yaml.safe_load(f)
+    #     cache['cache']['order_id'] += 1
+    #     cache['cache']['last_date'] = datetime.date.today().isoformat()
+    #     f.seek(0)
+    #     f.write('---\n')
+    #     f.write(yaml.dump(cache, default_flow_style=False))
+    #     f.write('...\n')
+    # print('OK')
 
-    # Remove temporary files
-    os.remove(FILE_ORDER)
-    os.remove(file_out)
+    # # Remove temporary files
+    # os.remove(FILE_ORDER)
+    # os.remove(file_out)
