@@ -13,6 +13,7 @@ import yaml
 
 import dateutil.parser
 
+from email import encoders
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -157,7 +158,12 @@ def send_mail(config, cache, pdf_path):
     txt_attachment = MIMEText(body_text)
 
     with open(pdf_path, 'rb') as f:
-        pdf_attachment = MIMEApplication(f.read(), 'pdf')
+        pdf_attachment = MIMEApplication(
+            f.read(), _subtype='pdf', _encoder=encoders.encode_base64)
+    pdf_attachment.add_header(
+        'Content-Disposition', 'attachment',
+        filename=os.path.basename(pdf_path),
+    )
 
     # Construct MIME message
     msg = MIMEMultipart()
